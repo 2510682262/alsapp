@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.alsapp.dao.AUserMessageMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.alsapp.entity.AUserMessage">
+    <id column="mes_id" jdbcType="INTEGER" property="mesId" />
+    <result column="mes_headimage" jdbcType="VARCHAR" property="mesHeadimage" />
+    <result column="mes_sex" jdbcType="INTEGER" property="mesSex" />
+    <result column="mes_name" jdbcType="VARCHAR" property="mesName" />
+    <result column="mes_brithday" jdbcType="DATE" property="mesBrithday" />
+    <result column="mes_use_id" jdbcType="INTEGER" property="mesUseId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mes_id, mes_headimage, mes_sex, mes_name, mes_brithday, mes_use_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from a_user_message
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMesUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from a_user_message
+    where mes_use_id = #{mesUserId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from a_user_message
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.alsapp.entity.AUserMessage">
+    insert into a_user_message (mes_id, mes_headimage, mes_sex, 
+      mes_name, mes_brithday, mes_use_id
+      )
+    values (#{mesId,jdbcType=INTEGER}, #{mesHeadimage,jdbcType=VARCHAR}, #{mesSex,jdbcType=INTEGER}, 
+      #{mesName,jdbcType=VARCHAR}, #{mesBrithday,jdbcType=DATE}, #{mesUseId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.alsapp.entity.AUserMessage">
+    insert into a_user_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mesId != null">
+        mes_id,
+      </if>
+      <if test="mesHeadimage != null">
+        mes_headimage,
+      </if>
+      <if test="mesSex != null">
+        mes_sex,
+      </if>
+      <if test="mesName != null">
+        mes_name,
+      </if>
+      <if test="mesBrithday != null">
+        mes_brithday,
+      </if>
+      <if test="mesUseId != null">
+        mes_use_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mesId != null">
+        #{mesId,jdbcType=INTEGER},
+      </if>
+      <if test="mesHeadimage != null">
+        #{mesHeadimage,jdbcType=VARCHAR},
+      </if>
+      <if test="mesSex != null">
+        #{mesSex,jdbcType=INTEGER},
+      </if>
+      <if test="mesName != null">
+        #{mesName,jdbcType=VARCHAR},
+      </if>
+      <if test="mesBrithday != null">
+        #{mesBrithday,jdbcType=DATE},
+      </if>
+      <if test="mesUseId != null">
+        #{mesUseId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.alsapp.entity.AUserMessage">
+    update a_user_message
+    <set>
+      <if test="mesHeadimage != null">
+        mes_headimage = #{mesHeadimage,jdbcType=VARCHAR},
+      </if>
+      <if test="mesSex != null">
+        mes_sex = #{mesSex,jdbcType=INTEGER},
+      </if>
+      <if test="mesName != null">
+        mes_name = #{mesName,jdbcType=VARCHAR},
+      </if>
+      <if test="mesBrithday != null">
+        mes_brithday = #{mesBrithday,jdbcType=DATE},
+      </if>
+      <if test="mesUseId != null">
+        mes_use_id = #{mesUseId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.alsapp.entity.AUserMessage">
+    update a_user_message
+    set mes_headimage = #{mesHeadimage,jdbcType=VARCHAR},
+      mes_sex = #{mesSex,jdbcType=INTEGER},
+      mes_name = #{mesName,jdbcType=VARCHAR},
+      mes_brithday = #{mesBrithday,jdbcType=DATE},
+      mes_use_id = #{mesUseId,jdbcType=INTEGER}
+    where mes_id = #{mesId,jdbcType=INTEGER}
+  </update>
+</mapper>

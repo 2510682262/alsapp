@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.alsapp.dao.AGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.alsapp.entity.AGoods">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="goods_batch" jdbcType="INTEGER" property="goodsBatch" />
+    <result column="goods_unit" jdbcType="VARCHAR" property="goodsUnit" />
+    <result column="goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goods_id, goods_name, goods_type, goods_batch, goods_unit, goods_price, goods_img
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from a_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from a_goods
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.alsapp.entity.AGoods">
+    insert into a_goods (goods_id, goods_name, goods_type, 
+      goods_batch, goods_unit, goods_price, 
+      goods_img)
+    values (#{goodsId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsType,jdbcType=INTEGER}, 
+      #{goodsBatch,jdbcType=INTEGER}, #{goodsUnit,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE}, 
+      #{goodsImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.alsapp.entity.AGoods">
+    insert into a_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="goodsBatch != null">
+        goods_batch,
+      </if>
+      <if test="goodsUnit != null">
+        goods_unit,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsImg != null">
+        goods_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsBatch != null">
+        #{goodsBatch,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUnit != null">
+        #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsImg != null">
+        #{goodsImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.alsapp.entity.AGoods">
+    update a_goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="goodsBatch != null">
+        goods_batch = #{goodsBatch,jdbcType=INTEGER},
+      </if>
+      <if test="goodsUnit != null">
+        goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsImg != null">
+        goods_img = #{goodsImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.alsapp.entity.AGoods">
+    update a_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=INTEGER},
+      goods_batch = #{goodsBatch,jdbcType=INTEGER},
+      goods_unit = #{goodsUnit,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      goods_img = #{goodsImg,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+  </update>
+
+    <select id="selectByType" resultMap="BaseResultMap">
+        select * from a_goods where goods_type = #{type}
+    </select>
+
+    <select id="selectByBatch" resultMap="BaseResultMap">
+        select * from a_goods where goods_batch = #{batch} limit 0,5
+    </select>
+
+
+  <select id="selectByGoodsName" resultMap="BaseResultMap">
+  select g.* from a_goods g
+  INNER JOIN a_goods_dict gd
+  ON g.goods_type=gd.dict_id
+  where g.goods_name LIKE '%${name}%'
+  OR gd.dict_type LIKE '%${name}%'
+  OR gd.dict_item LIKE '%${name}%'
+  OR g.goods_price LIKE '%${name}%'
+</select>
+</mapper>

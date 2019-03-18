@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.alsapp.dao.AGoodsBatchMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.alsapp.entity.AGoodsBatch">
+    <id column="batch_id" jdbcType="INTEGER" property="batchId" />
+    <result column="batch_name" jdbcType="VARCHAR" property="batchName" />
+    <result column="batch_img" jdbcType="VARCHAR" property="batchImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    batch_id, batch_name, batch_img
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from a_goods_batch
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from a_goods_batch
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.alsapp.entity.AGoodsBatch">
+    insert into a_goods_batch (batch_id, batch_name, batch_img
+      )
+    values (#{batchId,jdbcType=INTEGER}, #{batchName,jdbcType=VARCHAR}, #{batchImg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.alsapp.entity.AGoodsBatch">
+    insert into a_goods_batch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="batchId != null">
+        batch_id,
+      </if>
+      <if test="batchName != null">
+        batch_name,
+      </if>
+      <if test="batchImg != null">
+        batch_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="batchId != null">
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="batchName != null">
+        #{batchName,jdbcType=VARCHAR},
+      </if>
+      <if test="batchImg != null">
+        #{batchImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.alsapp.entity.AGoodsBatch">
+    update a_goods_batch
+    <set>
+      <if test="batchName != null">
+        batch_name = #{batchName,jdbcType=VARCHAR},
+      </if>
+      <if test="batchImg != null">
+        batch_img = #{batchImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.alsapp.entity.AGoodsBatch">
+    update a_goods_batch
+    set batch_name = #{batchName,jdbcType=VARCHAR},
+      batch_img = #{batchImg,jdbcType=VARCHAR}
+    where batch_id = #{batchId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.alsapp.dao.AUserAddrMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.alsapp.entity.AUserAddr">
+    <id column="addr_id" jdbcType="INTEGER" property="addrId" />
+    <result column="addr_user_name" jdbcType="VARCHAR" property="addrUserName" />
+    <result column="addr_phone" jdbcType="VARCHAR" property="addrPhone" />
+    <result column="addr_area" jdbcType="VARCHAR" property="addrArea" />
+    <result column="addr_info" jdbcType="VARCHAR" property="addrInfo" />
+    <result column="addr_flag" jdbcType="INTEGER" property="addrFlag" />
+    <result column="addr_user_id" jdbcType="INTEGER" property="addrUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    addr_id, addr_user_name, addr_phone, addr_area, addr_info, addr_flag, addr_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from a_user_addr
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUidFlag" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from a_user_addr
+    where addr_flag = 1 and addr_user_id=#{userId}
+  </select>
+
+  <select id="selectAddr" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from a_user_addr
+    where addr_user_id=#{userId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from a_user_addr
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.alsapp.entity.AUserAddr">
+    insert into a_user_addr (addr_id, addr_user_name, addr_phone, 
+      addr_area, addr_info, addr_flag, 
+      addr_user_id)
+    values (#{addrId,jdbcType=INTEGER}, #{addrUserName,jdbcType=VARCHAR}, #{addrPhone,jdbcType=VARCHAR}, 
+      #{addrArea,jdbcType=VARCHAR}, #{addrInfo,jdbcType=VARCHAR}, #{addrFlag,jdbcType=INTEGER}, 
+      #{addrUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.alsapp.entity.AUserAddr">
+    insert into a_user_addr
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="addrId != null">
+        addr_id,
+      </if>
+      <if test="addrUserName != null">
+        addr_user_name,
+      </if>
+      <if test="addrPhone != null">
+        addr_phone,
+      </if>
+      <if test="addrArea != null">
+        addr_area,
+      </if>
+      <if test="addrInfo != null">
+        addr_info,
+      </if>
+      <if test="addrFlag != null">
+        addr_flag,
+      </if>
+      <if test="addrUserId != null">
+        addr_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="addrId != null">
+        #{addrId,jdbcType=INTEGER},
+      </if>
+      <if test="addrUserName != null">
+        #{addrUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrPhone != null">
+        #{addrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addrArea != null">
+        #{addrArea,jdbcType=VARCHAR},
+      </if>
+      <if test="addrInfo != null">
+        #{addrInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="addrFlag != null">
+        #{addrFlag,jdbcType=INTEGER},
+      </if>
+      <if test="addrUserId != null">
+        #{addrUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.alsapp.entity.AUserAddr">
+    update a_user_addr
+    <set>
+      <if test="addrUserName != null">
+        addr_user_name = #{addrUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="addrPhone != null">
+        addr_phone = #{addrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addrArea != null">
+        addr_area = #{addrArea,jdbcType=VARCHAR},
+      </if>
+      <if test="addrInfo != null">
+        addr_info = #{addrInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="addrFlag != null">
+        addr_flag = #{addrFlag,jdbcType=INTEGER},
+      </if>
+      <if test="addrUserId != null">
+        addr_user_id = #{addrUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.alsapp.entity.AUserAddr">
+    update a_user_addr
+    set addr_user_name = #{addrUserName,jdbcType=VARCHAR},
+      addr_phone = #{addrPhone,jdbcType=VARCHAR},
+      addr_area = #{addrArea,jdbcType=VARCHAR},
+      addr_info = #{addrInfo,jdbcType=VARCHAR},
+      addr_flag = #{addrFlag,jdbcType=INTEGER},
+      addr_user_id = #{addrUserId,jdbcType=INTEGER}
+    where addr_id = #{addrId,jdbcType=INTEGER}
+  </update>
+</mapper>

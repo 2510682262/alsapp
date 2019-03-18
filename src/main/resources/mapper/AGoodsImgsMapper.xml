@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.alsapp.dao.AGoodsImgsMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.alsapp.entity.AGoodsImgs">
+    <id column="imgs_id" jdbcType="INTEGER" property="imgsId" />
+    <result column="imgs_path" jdbcType="VARCHAR" property="imgsPath" />
+    <result column="imgs_goods_id" jdbcType="INTEGER" property="imgsGoodsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    imgs_id, imgs_path, imgs_goods_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from a_goods_imgs
+    where imgs_id = #{imgsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from a_goods_imgs
+    where imgs_id = #{imgsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.alsapp.entity.AGoodsImgs">
+    insert into a_goods_imgs (imgs_id, imgs_path, imgs_goods_id
+      )
+    values (#{imgsId,jdbcType=INTEGER}, #{imgsPath,jdbcType=VARCHAR}, #{imgsGoodsId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.alsapp.entity.AGoodsImgs">
+    insert into a_goods_imgs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="imgsId != null">
+        imgs_id,
+      </if>
+      <if test="imgsPath != null">
+        imgs_path,
+      </if>
+      <if test="imgsGoodsId != null">
+        imgs_goods_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="imgsId != null">
+        #{imgsId,jdbcType=INTEGER},
+      </if>
+      <if test="imgsPath != null">
+        #{imgsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgsGoodsId != null">
+        #{imgsGoodsId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.alsapp.entity.AGoodsImgs">
+    update a_goods_imgs
+    <set>
+      <if test="imgsPath != null">
+        imgs_path = #{imgsPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgsGoodsId != null">
+        imgs_goods_id = #{imgsGoodsId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where imgs_id = #{imgsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.alsapp.entity.AGoodsImgs">
+    update a_goods_imgs
+    set imgs_path = #{imgsPath,jdbcType=VARCHAR},
+      imgs_goods_id = #{imgsGoodsId,jdbcType=INTEGER}
+    where imgs_id = #{imgsId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByGoodsId" resultMap="BaseResultMap">
+    select * from a_goods_imgs where imgs_goods_id = #{id}
+  </select>
+</mapper>
